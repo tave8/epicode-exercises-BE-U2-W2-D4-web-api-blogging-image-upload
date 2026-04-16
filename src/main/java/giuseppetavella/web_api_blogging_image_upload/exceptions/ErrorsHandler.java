@@ -5,6 +5,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestControllerAdvice
 public class ErrorsHandler {
@@ -20,6 +24,16 @@ public class ErrorsHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorsToSendDTO handlePayloadValidationError(PayloadValidationException ex) {
         return new ErrorsToSendDTO(ex.getMessage(), ex.getErrors());
+    }
+    
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorsToSendDTO handleMethodArgumentoTypeMismatch(MethodArgumentTypeMismatchException ex) {
+        String msg = "The type of some field cannot be cast to the correct type. DETAILS: " + ex.getMessage();
+        // List<String> errors = new ArrayList<>(
+        //         ex.getMessage()
+        // );
+        return new ErrorsToSendDTO(msg);
     }
     
     

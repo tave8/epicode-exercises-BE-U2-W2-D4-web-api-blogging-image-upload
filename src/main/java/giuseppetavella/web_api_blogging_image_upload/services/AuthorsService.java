@@ -30,16 +30,7 @@ public class AuthorsService {
         return this.authorsRepository
                 .findAll()
                 .stream()
-                .map(author -> {
-                    return new AuthorToSendDTO(
-                        author.getAuthorId(),
-                        author.getNome(),
-                        author.getCognome(),
-                        author.getEmail(),
-                        author.getDataNascita(),
-                        author.getAvatarUrl()
-                    );
-                })
+                .map(author -> new AuthorToSendDTO(author))
                 .toList();
     }
     
@@ -55,14 +46,7 @@ public class AuthorsService {
 
         this.authorsRepository.save(newAuthor);
         
-        return new AuthorToSendDTO(
-            newAuthor.getAuthorId(),
-            newAuthor.getNome(),
-            newAuthor.getCognome(),
-            newAuthor.getEmail(),
-            newAuthor.getDataNascita() ,
-            newAuthor.getAvatarUrl()
-        );
+        return new AuthorToSendDTO(newAuthor);
     }
     
     
@@ -80,14 +64,7 @@ public class AuthorsService {
     
     public AuthorToSendDTO updateAuthor(Author author) {
         Author updatedAuthor = this.authorsRepository.save(author);
-        return new AuthorToSendDTO(
-                updatedAuthor.getAuthorId(),
-                updatedAuthor.getNome(),
-                updatedAuthor.getCognome(),
-                updatedAuthor.getEmail(),
-                updatedAuthor.getDataNascita(),
-                updatedAuthor.getAvatarUrl()
-        );
+        return new AuthorToSendDTO(updatedAuthor);
     }
     
     

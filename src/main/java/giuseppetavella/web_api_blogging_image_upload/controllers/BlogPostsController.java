@@ -44,7 +44,7 @@ public class BlogPostsController {
     
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public BlogPost addNewBlogPost(@RequestBody @Validated NewBlogPostSentDTO body, 
+    public BlogPostToSendDTO addNewBlogPost(@RequestBody @Validated NewBlogPostSentDTO body, 
                                    BindingResult validationResult) 
     {
         

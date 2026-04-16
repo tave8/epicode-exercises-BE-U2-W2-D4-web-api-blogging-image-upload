@@ -56,7 +56,7 @@ public class BlogPostsService {
     
     
 
-    public BlogPost saveNewBlogPost(NewBlogPostSentDTO body) throws NotFoundException {
+    public BlogPostToSendDTO saveNewBlogPost(NewBlogPostSentDTO body) throws NotFoundException {
         // fai i controlli qui dentro
         
         // prima di aggiungere il blog post, trova l'autore,
@@ -72,7 +72,14 @@ public class BlogPostsService {
         );
 
         this.blogPostsRepository.save(newBlogPost);
-        return newBlogPost;
+        
+        return new BlogPostToSendDTO(
+                newBlogPost.getAuthor().getAuthorId(),
+                newBlogPost.getTitolo(),
+                newBlogPost.getCategoria(),
+                newBlogPost.getContenuto(),
+                newBlogPost.getTempoDiLettura()
+        );
     }
 
     // public BlogPost update(String blogPostIdStr, NewBlogPostPayload body) {

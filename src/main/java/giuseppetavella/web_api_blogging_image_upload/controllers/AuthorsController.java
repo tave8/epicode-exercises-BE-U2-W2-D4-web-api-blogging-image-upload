@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.UUID;
@@ -35,8 +36,8 @@ public class AuthorsController {
     }
 
     
-    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public AuthorToSendDTO addNewAuthor(@RequestBody @Validated NewAuthorSentDTO body,
                                         BindingResult validationResult) 
     {
@@ -57,6 +58,17 @@ public class AuthorsController {
         }
         
         return this.authorsService.addNewAuthor(body);
+    }
+    
+    @PostMapping("/{authorId}/avatarImage")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void uploadAuthorAvatarImage(
+            @RequestParam("profile_picture") MultipartFile file,
+            @PathVariable UUID authorId) 
+    {
+
+        System.out.println(file.getOriginalFilename());
+        
     }
     
     //

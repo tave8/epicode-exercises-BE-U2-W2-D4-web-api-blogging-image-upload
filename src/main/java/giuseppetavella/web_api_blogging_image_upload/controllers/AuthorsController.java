@@ -67,7 +67,7 @@ public class AuthorsController {
             @PathVariable UUID authorId) 
     {
 
-        System.out.println(file.getOriginalFilename());
+       this.authorsService.uploadAvatarImage(authorId, file);
         
     }
     

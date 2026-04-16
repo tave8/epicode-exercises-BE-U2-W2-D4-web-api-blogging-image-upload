@@ -62,13 +62,12 @@ public class AuthorsController {
     
     @PostMapping("/{authorId}/avatarImage")
     @ResponseStatus(HttpStatus.CREATED)
-    public void uploadAuthorAvatarImage(
+    public AuthorToSendDTO uploadAuthorAvatarImage(
             @RequestParam("profile_picture") MultipartFile file,
             @PathVariable UUID authorId) 
     {
 
-       this.authorsService.uploadAvatarImage(authorId, file);
-        
+       return this.authorsService.uploadAvatarImage(authorId, file);
     }
     
     //

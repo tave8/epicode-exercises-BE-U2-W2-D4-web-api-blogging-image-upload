@@ -77,6 +77,9 @@ public class Author {
         this.nome = nome;
     }
 
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
 
     public String getDefaultAvatarUrl() {
         String nomeCompleto = this.getNome() + "+" + this.getCognome();

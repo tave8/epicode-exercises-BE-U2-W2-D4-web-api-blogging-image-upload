@@ -17,6 +17,8 @@ public record AuthorToSendDTO(
 
         String email,
 
-        LocalDate dataNascita) 
+        LocalDate dataNascita,
+        
+        String avatarUrl) 
 {
 }

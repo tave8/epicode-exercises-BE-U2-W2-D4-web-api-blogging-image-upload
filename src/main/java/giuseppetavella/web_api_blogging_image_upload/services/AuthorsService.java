@@ -36,7 +36,8 @@ public class AuthorsService {
                         author.getNome(),
                         author.getCognome(),
                         author.getEmail(),
-                        author.getDataNascita()
+                        author.getDataNascita(),
+                        author.getAvatarUrl()
                     );
                 })
                 .toList();
@@ -59,21 +60,37 @@ public class AuthorsService {
             newAuthor.getNome(),
             newAuthor.getCognome(),
             newAuthor.getEmail(),
-            newAuthor.getDataNascita()    
+            newAuthor.getDataNascita() ,
+            newAuthor.getAvatarUrl()
         );
     }
     
-    //
-    // public Author update(String authorIdStr, NewAuthorPayload body) {
-    //     Author author = this.findOne(authorIdStr);
+    
+    // public AuthorToSendDTO updateAuthor(UUID authorId, NewAuthorPayload body) {
     //    
-    //     author.setNome(body.getNome());
-    //     author.setCognome(body.getCognome());
-    //     author.setEmail(body.getEmail());
-    //     author.setDataNascita(body.getDataNascita());
-    //    
-    //     return author;
+    //     // Author author = this.findOne(authorIdStr);
+    //     //
+    //     // author.setNome(body.getNome());
+    //     // author.setCognome(body.getCognome());
+    //     // author.setEmail(body.getEmail());
+    //     // author.setDataNascita(body.getDataNascita());
+    //     //
+    //     // return author;
     // }
+    
+    public AuthorToSendDTO updateAuthor(Author author) {
+        Author updatedAuthor = this.authorsRepository.save(author);
+        return new AuthorToSendDTO(
+                updatedAuthor.getAuthorId(),
+                updatedAuthor.getNome(),
+                updatedAuthor.getCognome(),
+                updatedAuthor.getEmail(),
+                updatedAuthor.getDataNascita(),
+                updatedAuthor.getAvatarUrl()
+        );
+    }
+    
+    
     //
     //
     // public Author delete(String authorIdStr) {
@@ -98,8 +115,8 @@ public class AuthorsService {
     }
     
     
-    public void uploadAvatarImage(UUID authorId, 
-                                  MultipartFile avatarImage) throws NotFoundException {
+    public AuthorToSendDTO uploadAvatarImage(UUID authorId, 
+                                            MultipartFile avatarImage) throws NotFoundException {
         //   check that the file is an actual image
         
         //   find author
@@ -126,9 +143,10 @@ public class AuthorsService {
         System.out.println(avatarUrlAfterUpload);
         
         // update author (with setter)
-        // author.setAvatarUrl(avatarUrlAfterUpload);
+        author.setAvatarUrl(avatarUrlAfterUpload);
         
         // save user      
+        return this.updateAuthor(author);
         
     }
     

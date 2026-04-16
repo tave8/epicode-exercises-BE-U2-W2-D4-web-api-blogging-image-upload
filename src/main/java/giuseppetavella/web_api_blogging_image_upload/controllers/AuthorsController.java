@@ -31,8 +31,9 @@ public class AuthorsController {
     }
     
     @GetMapping("/{authorId}")
-    public Author findById(@PathVariable UUID authorId) {
-        return this.authorsService.findById(authorId);
+    public AuthorToSendDTO findById(@PathVariable UUID authorId) {
+        Author author = this.authorsService.findById(authorId);
+        return new AuthorToSendDTO(author);
     }
 
     

@@ -5,9 +5,7 @@ import giuseppetavella.web_api_blogging_image_upload.entities.Author;
 import giuseppetavella.web_api_blogging_image_upload.entities.BlogPost;
 import giuseppetavella.web_api_blogging_image_upload.exceptions.NotFoundException;
 import giuseppetavella.web_api_blogging_image_upload.payloads.BlogPostToSendPayload;
-import giuseppetavella.web_api_blogging_image_upload.payloads.NewAuthorPayload;
 import giuseppetavella.web_api_blogging_image_upload.payloads.NewBlogPostPayload;
-import giuseppetavella.web_api_blogging_image_upload.repositories.AuthorsRepository;
 import giuseppetavella.web_api_blogging_image_upload.repositories.BlogPostsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,8 +14,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 

@@ -1,10 +1,8 @@
 package giuseppetavella.web_api_blogging_image_upload.controllers;
 
 
-import giuseppetavella.web_api_blogging_image_upload.entities.Author;
 import giuseppetavella.web_api_blogging_image_upload.entities.BlogPost;
 import giuseppetavella.web_api_blogging_image_upload.payloads.BlogPostToSendPayload;
-import giuseppetavella.web_api_blogging_image_upload.payloads.NewAuthorPayload;
 import giuseppetavella.web_api_blogging_image_upload.payloads.NewBlogPostPayload;
 import giuseppetavella.web_api_blogging_image_upload.services.BlogPostsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController

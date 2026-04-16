@@ -3,12 +3,11 @@ package giuseppetavella.web_api_blogging_image_upload.services;
 
 import giuseppetavella.web_api_blogging_image_upload.entities.Author;
 import giuseppetavella.web_api_blogging_image_upload.exceptions.NotFoundException;
-import giuseppetavella.web_api_blogging_image_upload.payloads.NewAuthorPayload;
+import giuseppetavella.web_api_blogging_image_upload.payloads.in_request.NewAuthorSentDTO;
 import giuseppetavella.web_api_blogging_image_upload.repositories.AuthorsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -23,14 +22,14 @@ public class AuthorsService {
         return this.authorsRepository.findAll();
     }
     
-    public Author addNewAuthor(NewAuthorPayload body) {
+    public Author addNewAuthor(NewAuthorSentDTO body) {
         // fai le verifiche qui prima di aggiungere l'autore
         
         Author newAuthor = new Author(
-                body.getNome(),
-                body.getCognome(),
-                body.getEmail(),
-                body.getDataNascita()
+                body.nome(),
+                body.cognome(),
+                body.email(),
+                body.dataNascita()
         );
 
         this.authorsRepository.save(newAuthor);

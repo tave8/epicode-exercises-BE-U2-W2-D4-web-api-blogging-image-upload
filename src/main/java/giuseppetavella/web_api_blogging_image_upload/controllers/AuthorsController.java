@@ -2,10 +2,14 @@ package giuseppetavella.web_api_blogging_image_upload.controllers;
 
 
 import giuseppetavella.web_api_blogging_image_upload.entities.Author;
-import giuseppetavella.web_api_blogging_image_upload.payloads.NewAuthorPayload;
+import giuseppetavella.web_api_blogging_image_upload.exceptions.PayloadValidationException;
+import giuseppetavella.web_api_blogging_image_upload.payloads.in_request.NewAuthorSentDTO;
 import giuseppetavella.web_api_blogging_image_upload.services.AuthorsService;
+import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,7 +36,25 @@ public class AuthorsController {
     
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Author add(@RequestBody NewAuthorPayload body) {
+    public Author addNewAuthor(@RequestBody @Validated NewAuthorSentDTO body, 
+                               BindingResult validationResult) 
+    {
+        
+        // check if validation errors
+        if (validationResult.hasErrors()) {
+            // here we get the errors 
+            List<String> errors = validationResult
+                                    .getFieldErrors()
+                                    .stream()
+                                    .map(fieldError -> fieldError.getDefaultMessage())
+                                    .toList();
+            // we throw the exception that is specific to payload validation
+            // this exception will then be handled by the appropriate
+            // exception handler at the framework level
+            throw new PayloadValidationException(errors);
+            
+        }
+        
         return this.authorsService.addNewAuthor(body);
     }
     

@@ -41,16 +41,7 @@ public class BlogPostsService {
 
     public Page<BlogPostToSendDTO> findAllAsPayload(int page, int size, String sortBy) {
        Page<BlogPost> blogPosts = this.findAll(page, size, sortBy);
-       
-       return blogPosts.map(blogPost -> {
-          return new BlogPostToSendDTO(
-              blogPost.getBlogPostId(),
-              blogPost.getTitolo(),
-              blogPost.getCategoria(),
-              blogPost.getContenuto(),
-              blogPost.getTempoDiLettura()
-          ); 
-       });
+       return blogPosts.map(blogPost -> new BlogPostToSendDTO(blogPost));
     }
     
     
@@ -73,13 +64,7 @@ public class BlogPostsService {
 
         this.blogPostsRepository.save(newBlogPost);
         
-        return new BlogPostToSendDTO(
-                newBlogPost.getAuthor().getAuthorId(),
-                newBlogPost.getTitolo(),
-                newBlogPost.getCategoria(),
-                newBlogPost.getContenuto(),
-                newBlogPost.getTempoDiLettura()
-        );
+        return new BlogPostToSendDTO(newBlogPost);
     }
 
     // public BlogPost update(String blogPostIdStr, NewBlogPostPayload body) {
@@ -106,13 +91,7 @@ public class BlogPostsService {
     public BlogPostToSendDTO findByIdAsPayload(UUID blogPostId) {
         BlogPost blogPost = this.findById(blogPostId);
         // map 
-        BlogPostToSendDTO blogPostToSendDTO = new BlogPostToSendDTO(
-                blogPost.getBlogPostId(),
-                blogPost.getTitolo(),
-                blogPost.getCategoria(),
-                blogPost.getContenuto(),
-                blogPost.getTempoDiLettura()
-        );
+        BlogPostToSendDTO blogPostToSendDTO = new BlogPostToSendDTO(blogPost);
         
         return blogPostToSendDTO;
     }

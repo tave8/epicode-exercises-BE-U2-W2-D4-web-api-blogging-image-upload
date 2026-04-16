@@ -117,7 +117,7 @@ public class AuthorsService {
         
         // get image url, if success
 
-        System.out.println(avatarUrlAfterUpload);
+        // System.out.println(avatarUrlAfterUpload);
         
         // update author (with setter)
         author.setAvatarUrl(avatarUrlAfterUpload);

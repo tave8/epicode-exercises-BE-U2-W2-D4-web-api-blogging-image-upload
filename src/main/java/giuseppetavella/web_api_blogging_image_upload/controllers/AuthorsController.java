@@ -4,6 +4,7 @@ package giuseppetavella.web_api_blogging_image_upload.controllers;
 import giuseppetavella.web_api_blogging_image_upload.entities.Author;
 import giuseppetavella.web_api_blogging_image_upload.exceptions.PayloadValidationException;
 import giuseppetavella.web_api_blogging_image_upload.payloads.in_request.NewAuthorSentDTO;
+import giuseppetavella.web_api_blogging_image_upload.payloads.in_response.AuthorToSendDTO;
 import giuseppetavella.web_api_blogging_image_upload.services.AuthorsService;
 import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class AuthorsController {
     
     
     @GetMapping
-    public List<Author> findAll() {
+    public List<AuthorToSendDTO> findAll() {
         return this.authorsService.findAll(); 
     }
     
@@ -36,8 +37,8 @@ public class AuthorsController {
     
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Author addNewAuthor(@RequestBody @Validated NewAuthorSentDTO body, 
-                               BindingResult validationResult) 
+    public AuthorToSendDTO addNewAuthor(@RequestBody @Validated NewAuthorSentDTO body,
+                                        BindingResult validationResult) 
     {
         
         // check if validation errors

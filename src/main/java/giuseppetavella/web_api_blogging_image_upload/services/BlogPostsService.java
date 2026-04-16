@@ -4,8 +4,8 @@ package giuseppetavella.web_api_blogging_image_upload.services;
 import giuseppetavella.web_api_blogging_image_upload.entities.Author;
 import giuseppetavella.web_api_blogging_image_upload.entities.BlogPost;
 import giuseppetavella.web_api_blogging_image_upload.exceptions.NotFoundException;
-import giuseppetavella.web_api_blogging_image_upload.payloads.BlogPostToSendPayload;
-import giuseppetavella.web_api_blogging_image_upload.payloads.NewBlogPostPayload;
+import giuseppetavella.web_api_blogging_image_upload.payloads.in_response.BlogPostToSendDTO;
+import giuseppetavella.web_api_blogging_image_upload.payloads.in_request.NewBlogPostSentDTO;
 import giuseppetavella.web_api_blogging_image_upload.repositories.BlogPostsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -39,11 +39,11 @@ public class BlogPostsService {
         return this.blogPostsRepository.findAll(pageable);
     }
 
-    public Page<BlogPostToSendPayload> findAllAsPayload(int page, int size, String sortBy) {
+    public Page<BlogPostToSendDTO> findAllAsPayload(int page, int size, String sortBy) {
        Page<BlogPost> blogPosts = this.findAll(page, size, sortBy);
        
        return blogPosts.map(blogPost -> {
-          return new BlogPostToSendPayload(
+          return new BlogPostToSendDTO(
               blogPost.getBlogPostId(),
               blogPost.getTitolo(),
               blogPost.getCategoria(),
@@ -56,19 +56,19 @@ public class BlogPostsService {
     
     
 
-    public BlogPost saveNewBlogPost(NewBlogPostPayload body) throws NotFoundException {
+    public BlogPost saveNewBlogPost(NewBlogPostSentDTO body) throws NotFoundException {
         // fai i controlli qui dentro
         
         // prima di aggiungere il blog post, trova l'autore,
        //  se esiste
-       Author author = this.authorsService.findById(body.getAuthorId());
+       Author author = this.authorsService.findById(body.authorId());
         
         BlogPost newBlogPost = new BlogPost(
                 author,
-                body.getTitolo(),
-                body.getCategoria(),
-                body.getContenuto(),
-                body.getTempoDiLettura()
+                body.titolo(),
+                body.categoria(),
+                body.contenuto(),
+                body.tempoDiLettura()
         );
 
         this.blogPostsRepository.save(newBlogPost);
@@ -96,10 +96,10 @@ public class BlogPostsService {
     // }
 
 
-    public BlogPostToSendPayload findByIdAsPayload(UUID blogPostId) {
+    public BlogPostToSendDTO findByIdAsPayload(UUID blogPostId) {
         BlogPost blogPost = this.findById(blogPostId);
         // map 
-        BlogPostToSendPayload blogPostToSendPayload = new BlogPostToSendPayload(
+        BlogPostToSendDTO blogPostToSendDTO = new BlogPostToSendDTO(
                 blogPost.getBlogPostId(),
                 blogPost.getTitolo(),
                 blogPost.getCategoria(),
@@ -107,7 +107,7 @@ public class BlogPostsService {
                 blogPost.getTempoDiLettura()
         );
         
-        return blogPostToSendPayload;
+        return blogPostToSendDTO;
     }
 
 

@@ -1,8 +1,8 @@
-package giuseppetavella.web_api_blogging_image_upload.payloads;
+package giuseppetavella.web_api_blogging_image_upload.payloads.in_response;
 
 import java.util.UUID;
 
-public class BlogPostToSendPayload {
+public class BlogPostToSendDTO {
 
     private final UUID authorId;
     private final String categoria;
@@ -10,7 +10,7 @@ public class BlogPostToSendPayload {
     private final String contenuto;
     private final int tempoDiLettura;
 
-    public BlogPostToSendPayload(UUID authorId, String titolo, String categoria, String contenuto, int tempoDiLettura) {
+    public BlogPostToSendDTO(UUID authorId, String titolo, String categoria, String contenuto, int tempoDiLettura) {
         this.authorId = authorId;
         this.titolo = titolo;
         this.categoria = categoria;

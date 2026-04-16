@@ -92,6 +92,7 @@ public class AuthorsService {
     }
     
     
+    
     public AuthorToSendDTO uploadAvatarImage(UUID authorId, 
                                             MultipartFile avatarImage) throws NotFoundException {
         //   check that the file is an actual image

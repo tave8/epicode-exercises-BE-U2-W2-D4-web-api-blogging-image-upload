@@ -86,15 +86,7 @@ public class BlogPostsService {
     //
     //     return blogPost;
     // }
-
-
-    public BlogPostToSendDTO findByIdAsPayload(UUID blogPostId) {
-        BlogPost blogPost = this.findById(blogPostId);
-        // map 
-        BlogPostToSendDTO blogPostToSendDTO = new BlogPostToSendDTO(blogPost);
-        
-        return blogPostToSendDTO;
-    }
+    
 
 
     public BlogPost findById(UUID blogPostId) {

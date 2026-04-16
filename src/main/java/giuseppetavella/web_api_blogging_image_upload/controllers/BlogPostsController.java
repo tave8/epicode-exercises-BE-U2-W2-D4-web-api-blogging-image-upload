@@ -36,7 +36,8 @@ public class BlogPostsController {
 
     @GetMapping("/{blogPostId}")
     public BlogPostToSendDTO findById(@PathVariable UUID blogPostId) {
-        return this.blogPostsService.findByIdAsPayload(blogPostId);
+        BlogPost blogPost = this.blogPostsService.findById(blogPostId);
+        return new BlogPostToSendDTO(blogPost);
     }
     
     // fare un payload custom per blog post e ritornare quello
